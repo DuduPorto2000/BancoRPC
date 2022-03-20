@@ -23,14 +23,48 @@ public class AppClienteBanco {
         while(opcao != 9) {
             switch (opcao) {
                 case 1: {
+                    //chamada ao método remoto, como se fosse executar localmente
+                    System.out.println(banco.quantidadeContas());
+                    break;
+                }
+                case 2: {
+                    System.out.println("Digite o número da conta a adicionar:");
+                    String conta = entrada.next();
+                    //chamada ao método remoto, como se fosse executar localmente
+                    banco.adicionarConta(conta, 0);
+                    break;
+                }
+                case 3: {
                     System.out.println("Digite o número da conta:");
                     String conta = entrada.next();
                     //chamada ao método remoto, como se fosse executar localmente
                     System.out.println(banco.saldo(conta));
+                    break;
                 }
-                case 2: {
+                case 4: {
+                    System.out.println("Digite o número da conta a pesquisar:");
+                    String conta = entrada.next();
                     //chamada ao método remoto, como se fosse executar localmente
-                    System.out.println(banco.quantidadeContas());
+                    String contaResult = banco.pesquisaConta(conta);
+                    if(contaResult == null)
+                        System.out.println("Conta não existente");
+                    else
+                        System.out.println(contaResult.toString());
+                    break;
+                }
+                case 5: {
+                    System.out.println("Digite o número da conta a remover:");
+                    String conta = entrada.next();
+                    //chamada ao método remoto, como se fosse executar localmente;
+                    if(banco.removerConta(conta))
+                        System.out.println("Conta '" + conta + "' deletada");
+                    else
+                        System.out.println("Conta não existente");
+                    break;
+                }
+                default: {
+                    System.out.println("Opção '" + opcao + "' Invalida");
+                    break;
                 }
             }
             menu();
@@ -39,9 +73,12 @@ public class AppClienteBanco {
     }
 
     public static void menu() {
+        System.out.println("Eduardo Henrique Fidelis porto");
         System.out.println("\n=== BANCO RMI (ou FMI?!) ===");
-        System.out.println("1 - Saldo da conta");
-        System.out.println("2 - Quantidade de contas");
+        System.out.println("1 - Quantidade de contas");
+        System.out.println("2 - Cadastro de nova conta");
+        System.out.println("3 - Saldo da conta");
+        System.out.println("4 - Pesquisar conta (por número)");
         System.out.println("9 - Sair");
     }
 
